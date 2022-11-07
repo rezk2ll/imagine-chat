@@ -25,14 +25,21 @@ export default function UsersList() {
   }
 
   return (
-    <div className='w-full md:w-full lg:w-6/12 mx-auto md:mx-0'>
-      <div className='bg-white p-10 flex flex-col w-full shadow-xl rounded-xl'>
+    <div className='flex flex-col w-full mr-10 pt-8 md:w-full lg:w-4/12 mx-auto md:mx-0 h-screen'>
+      <div className='h-20 pb-2'>
+
+      </div>
+      <div className='bg-white p-10 flex flex-col w-full shadow-xl rounded-xl h-4/5 mt-10'>
         <h2 className='text-2xl font-bold text-gray-800 text-left mb-5'>
           People you can talk with
         </h2>
         <div className='w-full'>
-          {users.map(user => (
-            <div id='button' className='flex flex-col w-full my-5' key={user.id}>
+          {users.map((user) => (
+            <div
+              id='button'
+              className='flex flex-col w-full my-5'
+              key={user.id}
+            >
               <button
                 type='button'
                 className='w-full py-4 bg-green-600 rounded-lg text-green-100'
@@ -54,7 +61,9 @@ export default function UsersList() {
                       ></path>
                     </svg>
                   </div>
-                  <div className='font-bold'>{ user.full_name || user.username || user.id }</div>
+                  <div className='font-bold'>
+                    {user.full_name || user.username || user.id}
+                  </div>
                 </div>
               </button>
             </div>
