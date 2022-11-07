@@ -28,3 +28,5 @@ jobs:
         npm run lint
       env:
         CI: true
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: "test"
+        NEXT_PUBLIC_SUPABASE_URL: "http://test"
