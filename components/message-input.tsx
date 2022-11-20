@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ChangeEvent, useState } from 'react';
 
 export default function MessageInput() {
@@ -9,6 +11,7 @@ export default function MessageInput() {
 
   const handleSend = async () => {
     try {
+      console.debug("sending");
       const response = await fetch('/api/send', {
         method: 'POST',
         body: JSON.stringify({
@@ -16,7 +19,7 @@ export default function MessageInput() {
         }),
       });
 
-      if(response.status === 200) { 
+      if (response.status === 200) {
         setMessage('');
       }
     } catch (error) {
@@ -27,7 +30,7 @@ export default function MessageInput() {
   return (
     <div className='flex flex-row items-center w-full'>
       <label htmlFor='send' className='sr-only'>
-        Send message
+        Send message { message }
       </label>
       <div className='relative w-full flex'>
         <div className='flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none'>

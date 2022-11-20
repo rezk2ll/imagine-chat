@@ -1,29 +1,13 @@
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Database } from '../types/supabase';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 
-export default function UsersList() {
-  const supabase = useSupabaseClient<Database>();
-  const [users, setUsers] = useState<Profile[]>([]);
+type PropsType = {
+  users: Profile[]
+}
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  async function fetchUsers() {
-    const { data, error } = await supabase.from('profiles').select('*');
-
-    if (error) {
-      return;
-    }
-
-    if (data) {
-      setUsers(data);
-    }
-  }
-
+export default function UsersList({ users } : PropsType) {
   return (
     <div className='flex flex-col w-full mr-10 pt-8 md:w-full lg:w-4/12 mx-auto md:mx-0 h-screen'>
       <div className='h-20 pb-2'>
@@ -62,7 +46,9 @@ export default function UsersList() {
                     </svg>
                   </div>
                   <div className='font-bold'>
+                    <Link href={`/messages/${user.id}`}>
                     {user.full_name || user.username || user.id}
+                    </Link>
                   </div>
                 </div>
               </button>

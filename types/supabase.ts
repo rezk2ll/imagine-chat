@@ -15,6 +15,7 @@ export interface Database {
           created_at: string | null
           content: string | null
           author: string | null
+          destination: string | null
         }
         Insert: {
           id?: number

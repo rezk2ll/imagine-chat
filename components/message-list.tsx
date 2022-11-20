@@ -1,30 +1,15 @@
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useEffect, useState } from 'react';
+'use client';
+
 import { Database } from '../types/supabase';
 import MessageInput from './message-input';
 
 type MessageType = Database['public']['Tables']['messages']['Row'];
 
-export default function MessageList() {
-  const [messages, setMessages] = useState<MessageType[]>([]);
-  const supabase = useSupabaseClient<Database>();
+type PropsType = {
+  messages: MessageType[];
+};
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  async function fetchMessages() {
-    const { data, error } = await supabase.from('messages').select('*');
-
-    if (error) {
-      return;
-    }
-
-    if (data) {
-      setMessages(data);
-    }
-  }
-
+export default function MessageList({ messages }: PropsType) {
   return (
     <div className='flex flex-col w-full mr-10 pt-8 h-screen'>
       <div>
@@ -65,7 +50,7 @@ export default function MessageList() {
                 sit amet!
               </p>
               <div className='mt-4 flex items-center'>
-                <div className='flex mr-2 text-gray-700 text-sm mr-3'>
+                <div className='flex text-gray-700 text-sm mr-3'>
                   <svg
                     fill='none'
                     viewBox='0 0 24 24'
@@ -73,9 +58,9 @@ export default function MessageList() {
                     stroke='currentColor'
                   >
                     <path
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      stroke-width='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
                       d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
                     />
                   </svg>
@@ -89,9 +74,9 @@ export default function MessageList() {
                     stroke='currentColor'
                   >
                     <path
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      stroke-width='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
                       d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z'
                     />
                   </svg>
@@ -105,9 +90,9 @@ export default function MessageList() {
                     stroke='currentColor'
                   >
                     <path
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      stroke-width='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
                       d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12'
                     />
                   </svg>

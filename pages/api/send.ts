@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Database } from '../../types/supabase'
@@ -16,18 +15,18 @@ export default async function handler(req: MessageApiRequest, res: NextApiRespon
   if (req.method === 'POST') {
     const supabaseClient = createServerSupabaseClient<Database>({ req, res });
     const { data } = await supabaseClient.auth.getUser();
-    const { message } = JSON.parse(req.body);
+    const { message, destination } = JSON.parse(req.body);
 
     if (!data) {
       return res.status(401);
     }
 
-    if (!message || !message.length) {
+    if (!message || !message.length || destination) {
       console.debug(message)
       return res.status(500).json({ message: "invalid message "});
     }
 
-    const imaginedMessage = await imagine(message);
+    const imaginedMessage = message;
 
     if (!imaginedMessage) {
       return res.status(500).json({ message: "failed to imagine message "});
@@ -36,6 +35,7 @@ export default async function handler(req: MessageApiRequest, res: NextApiRespon
     const { error, status } = await supabaseClient.from('messages').insert({
       author: data.user?.id,
       content: imaginedMessage,
+      destination
     });
 
     if (error) {
